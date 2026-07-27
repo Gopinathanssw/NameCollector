@@ -37,6 +37,7 @@ function NameForm({ fetchNames }) {
 
   return (
     <form onSubmit={handleSubmit}>
+      <h2>Submit your name here</h2>
       <input
         type="text"
         placeholder="Enter Name"
