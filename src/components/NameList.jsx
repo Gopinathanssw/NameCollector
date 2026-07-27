@@ -2,12 +2,22 @@ function NameList({ names }) {
   const willingCount = names.filter(
     (user) => user.willing_to_come === "yes",
   ).length;
+  const notWillingCount = names.filter(
+    (user) => user.willing_to_come === "no",
+  ).length;
 
   return (
     <div className="list-card">
       <div className="list-header">
         <h2 className="list-title">Participants</h2>
-        <span className="participant-count">{willingCount} joined</span>
+        <div className="count-badges">
+          <span className="participant-count count-yes">
+            {willingCount} attending
+          </span>
+          <span className="participant-count count-no">
+            {notWillingCount} not attending
+          </span>
+        </div>
       </div>
 
       {names.length === 0 ? (

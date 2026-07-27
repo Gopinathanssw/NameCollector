@@ -41,6 +41,7 @@ function NameForm({ fetchNames }) {
   return (
     <div className="form-card">
       <h1 className="form-title">35th GENX REVIEW MEET</h1>
+      <h6 className="form-title">10 AUG 2026</h6>
       <p className="form-subtitle">Enter your name and club to join the list</p>
 
       <form onSubmit={handleSubmit} className="name-form">
@@ -67,15 +68,33 @@ function NameForm({ fetchNames }) {
         </div>
 
         <div className="field-group">
-          <label htmlFor="willing">Willing to come</label>
-          <select
-            id="willing"
-            value={willing}
-            onChange={(e) => setWilling(e.target.value)}
-          >
-            <option value="yes">Yes</option>
-            <option value="no">No</option>
-          </select>
+          <label>Willing to come</label>
+          <div className="radio-group">
+            <label
+              className={`radio-option ${willing === "yes" ? "selected" : ""}`}
+            >
+              <input
+                type="radio"
+                name="willing"
+                value="yes"
+                checked={willing === "yes"}
+                onChange={(e) => setWilling(e.target.value)}
+              />
+              Yes
+            </label>
+            <label
+              className={`radio-option ${willing === "no" ? "selected" : ""}`}
+            >
+              <input
+                type="radio"
+                name="willing"
+                value="no"
+                checked={willing === "no"}
+                onChange={(e) => setWilling(e.target.value)}
+              />
+              No
+            </label>
+          </div>
         </div>
 
         <button type="submit" className="submit-btn" disabled={loading}>
