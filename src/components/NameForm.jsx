@@ -4,6 +4,7 @@ import supabase from "../services/supabase";
 function NameForm({ fetchNames }) {
   const [name, setName] = useState("");
   const [clubName, setClubName] = useState("");
+  const [willing, setWilling] = useState("yes");
   const [loading, setLoading] = useState(false);
 
   const handleSubmit = async (e) => {
@@ -20,6 +21,7 @@ function NameForm({ fetchNames }) {
       {
         name: name.trim(),
         club_name: clubName.trim(),
+        willing_to_come: willing,
       },
     ]);
 
@@ -32,12 +34,13 @@ function NameForm({ fetchNames }) {
 
     setName("");
     setClubName("");
+    setWilling("yes");
     fetchNames();
   };
 
   return (
     <div className="form-card">
-      <h2 className="form-title">Submit your name</h2>
+      <h1 className="form-title">35th GENX REVIEW MEET</h1>
       <p className="form-subtitle">Enter your name and club to join the list</p>
 
       <form onSubmit={handleSubmit} className="name-form">
@@ -61,6 +64,18 @@ function NameForm({ fetchNames }) {
             value={clubName}
             onChange={(e) => setClubName(e.target.value)}
           />
+        </div>
+
+        <div className="field-group">
+          <label htmlFor="willing">Willing to come</label>
+          <select
+            id="willing"
+            value={willing}
+            onChange={(e) => setWilling(e.target.value)}
+          >
+            <option value="yes">Yes</option>
+            <option value="no">No</option>
+          </select>
         </div>
 
         <button type="submit" className="submit-btn" disabled={loading}>
