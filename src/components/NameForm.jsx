@@ -41,7 +41,7 @@ function NameForm({ fetchNames }) {
   return (
     <div className="form-card">
       <h1 className="form-title">35th GENX REVIEW MEET</h1>
-      <h6 className="form-title">10 AUG 2026</h6>
+      <p className="form-date">10th AUG 2026</p>
       <p className="form-subtitle">Enter your name and club to join the list</p>
 
       <form onSubmit={handleSubmit} className="name-form">
