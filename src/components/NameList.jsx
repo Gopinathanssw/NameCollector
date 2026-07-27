@@ -1,17 +1,25 @@
 function NameList({ names }) {
   return (
-    <div style={{ marginTop: "30px" }}>
-      <h2>Submitted Names</h2>
+    <div>
+      <h2>Participants</h2>
 
-      {names.length === 0 ? (
-        <p>No names submitted.</p>
-      ) : (
-        <ul>
+      <table border="1" cellPadding="10">
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Club Name</th>
+          </tr>
+        </thead>
+
+        <tbody>
           {names.map((user) => (
-            <li key={user.id}>{user.name}</li>
+            <tr key={user.id}>
+              <td>{user.name}</td>
+              <td>{user.club_name}</td>
+            </tr>
           ))}
-        </ul>
-      )}
+        </tbody>
+      </table>
     </div>
   );
 }
