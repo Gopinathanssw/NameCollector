@@ -36,32 +36,38 @@ function NameForm({ fetchNames }) {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <h2>Submit your name here</h2>
-      <input
-        type="text"
-        placeholder="Enter Name"
-        value={name}
-        onChange={(e) => setName(e.target.value)}
-      />
+    <div className="form-card">
+      <h2 className="form-title">Submit your name</h2>
+      <p className="form-subtitle">Enter your name and club to join the list</p>
 
-      <br />
-      <br />
+      <form onSubmit={handleSubmit} className="name-form">
+        <div className="field-group">
+          <label htmlFor="name">Name</label>
+          <input
+            id="name"
+            type="text"
+            placeholder="Enter name"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+          />
+        </div>
 
-      <input
-        type="text"
-        placeholder="Enter Club Name"
-        value={clubName}
-        onChange={(e) => setClubName(e.target.value)}
-      />
+        <div className="field-group">
+          <label htmlFor="clubName">Club name</label>
+          <input
+            id="clubName"
+            type="text"
+            placeholder="Enter club name"
+            value={clubName}
+            onChange={(e) => setClubName(e.target.value)}
+          />
+        </div>
 
-      <br />
-      <br />
-
-      <button type="submit" disabled={loading}>
-        {loading ? "Submitting..." : "Submit"}
-      </button>
-    </form>
+        <button type="submit" className="submit-btn" disabled={loading}>
+          {loading ? "Submitting..." : "Submit"}
+        </button>
+      </form>
+    </div>
   );
 }
 
