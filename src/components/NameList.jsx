@@ -31,6 +31,7 @@ function NameList({ names }) {
                 <th>Name</th>
                 <th>Club name</th>
                 <th>Willing to come</th>
+                <th>Staying</th>
               </tr>
             </thead>
             <tbody>
@@ -48,6 +49,17 @@ function NameList({ names }) {
                       }
                     >
                       {user.willing_to_come === "yes" ? "Yes" : "No"}
+                    </span>
+                  </td>
+                  <td>
+                    <span
+                      className={
+                        user.staying === "yes"
+                          ? "badge badge-yes"
+                          : "badge badge-no"
+                      }
+                    >
+                      {user.staying === "yes" ? "Yes" : "No"}
                     </span>
                   </td>
                 </tr>

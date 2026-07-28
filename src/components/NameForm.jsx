@@ -5,6 +5,7 @@ function NameForm({ fetchNames }) {
   const [name, setName] = useState("");
   const [clubName, setClubName] = useState("");
   const [willing, setWilling] = useState("yes");
+  const [staying, setStaying] = useState("yes");
   const [loading, setLoading] = useState(false);
 
   const handleSubmit = async (e) => {
@@ -22,6 +23,7 @@ function NameForm({ fetchNames }) {
         name: name.trim(),
         club_name: clubName.trim(),
         willing_to_come: willing,
+        staying: staying,
       },
     ]);
 
@@ -35,6 +37,7 @@ function NameForm({ fetchNames }) {
     setName("");
     setClubName("");
     setWilling("yes");
+    setStaying("yes");
     fetchNames();
   };
 
@@ -91,6 +94,36 @@ function NameForm({ fetchNames }) {
                 value="no"
                 checked={willing === "no"}
                 onChange={(e) => setWilling(e.target.value)}
+              />
+              No
+            </label>
+          </div>
+        </div>
+
+        <div className="field-group">
+          <label>Staying</label>
+          <div className="radio-group">
+            <label
+              className={`radio-option ${staying === "yes" ? "selected" : ""}`}
+            >
+              <input
+                type="radio"
+                name="staying"
+                value="yes"
+                checked={staying === "yes"}
+                onChange={(e) => setStaying(e.target.value)}
+              />
+              Yes
+            </label>
+            <label
+              className={`radio-option ${staying === "no" ? "selected" : ""}`}
+            >
+              <input
+                type="radio"
+                name="staying"
+                value="no"
+                checked={staying === "no"}
+                onChange={(e) => setStaying(e.target.value)}
               />
               No
             </label>
