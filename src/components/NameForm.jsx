@@ -71,7 +71,7 @@ function NameForm({ fetchNames }) {
         </div>
 
         <div className="field-group">
-          <label>Willing to come</label>
+          <label>Are you Willing?</label>
           <div className="radio-group">
             <label
               className={`radio-option ${willing === "yes" ? "selected" : ""}`}
@@ -101,7 +101,7 @@ function NameForm({ fetchNames }) {
         </div>
 
         <div className="field-group">
-          <label>Staying</label>
+          <label>STAY?</label>
           <div className="radio-group">
             <label
               className={`radio-option ${staying === "yes" ? "selected" : ""}`}
