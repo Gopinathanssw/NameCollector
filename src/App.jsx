@@ -11,7 +11,7 @@ function App() {
     const { data, error } = await supabase
       .from("users")
       .select("*")
-      .order("id", { ascending: false });
+      .order("id", { ascending: true });
 
     if (!error) {
       setNames(data);

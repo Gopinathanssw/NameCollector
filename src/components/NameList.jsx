@@ -5,6 +5,8 @@ function NameList({ names }) {
   const notWillingCount = names.filter(
     (user) => user.willing_to_come === "no",
   ).length;
+  const stayingCount = names.filter((user) => user.staying === "yes").length;
+  const notStayingCount = names.filter((user) => user.staying === "no").length;
 
   return (
     <div className="list-card">
@@ -16,6 +18,12 @@ function NameList({ names }) {
           </span>
           <span className="participant-count count-no">
             {notWillingCount} not attending
+          </span>
+          <span className="participant-count count-yes">
+            {stayingCount} staying
+          </span>
+          <span className="participant-count count-no">
+            {notStayingCount} not staying
           </span>
         </div>
       </div>
@@ -30,8 +38,8 @@ function NameList({ names }) {
                 <th className="col-num">#</th>
                 <th>Name</th>
                 <th>Club name</th>
-                <th>Willing to come</th>
-                <th>Staying</th>
+                <th>Are You Willing?</th>
+                <th>Stay?</th>
               </tr>
             </thead>
             <tbody>

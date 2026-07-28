@@ -71,7 +71,7 @@ function NameForm({ fetchNames }) {
         </div>
 
         <div className="field-group">
-          <label>Are you Willing?</label>
+          <label>Are You Willing?</label>
           <div className="radio-group">
             <label
               className={`radio-option ${willing === "yes" ? "selected" : ""}`}
