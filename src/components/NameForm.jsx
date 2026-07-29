@@ -3,6 +3,7 @@ import supabase from "../services/supabase";
 
 function NameForm({ fetchNames }) {
   const [name, setName] = useState("");
+  const [userName, setUserName] = useState("");
   const [clubName, setClubName] = useState("");
   const [willing, setWilling] = useState("yes");
   const [staying, setStaying] = useState("yes");
@@ -11,7 +12,7 @@ function NameForm({ fetchNames }) {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if (!name.trim() || !clubName.trim()) {
+    if (!name.trim() || !userName.trim() || !clubName.trim()) {
       alert("Please fill all fields");
       return;
     }
@@ -21,6 +22,7 @@ function NameForm({ fetchNames }) {
     const { error } = await supabase.from("users").insert([
       {
         name: name.trim(),
+        user_name: userName.trim(),
         club_name: clubName.trim(),
         willing_to_come: willing,
         staying: staying,
@@ -35,6 +37,7 @@ function NameForm({ fetchNames }) {
     }
 
     setName("");
+    setUserName("");
     setClubName("");
     setWilling("yes");
     setStaying("yes");
@@ -56,6 +59,17 @@ function NameForm({ fetchNames }) {
             placeholder="Enter name"
             value={name}
             onChange={(e) => setName(e.target.value)}
+          />
+        </div>
+
+        <div className="field-group">
+          <label htmlFor="userName">Username</label>
+          <input
+            id="userName"
+            type="text"
+            placeholder="Enter username"
+            value={userName}
+            onChange={(e) => setUserName(e.target.value)}
           />
         </div>
 

@@ -37,6 +37,7 @@ function NameList({ names }) {
               <tr>
                 <th className="col-num">#</th>
                 <th>Name</th>
+                <th>Username</th>
                 <th>Club name</th>
                 <th>Are You Willing?</th>
                 <th>Stay?</th>
@@ -47,6 +48,7 @@ function NameList({ names }) {
                 <tr key={user.id}>
                   <td className="col-num">{index + 1}</td>
                   <td>{user.name}</td>
+                  <td>{user.user_name}</td>
                   <td>{user.club_name}</td>
                   <td>
                     <span
