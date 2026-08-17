@@ -105,7 +105,7 @@ function NameForm({ fetchNames }) {
 
       <h1 className="form-title">MILLENIAL's RELATIONSHIP PROGRAM</h1>
 
-      <p className="form-date">2nd AUG 2026</p>
+      <h2 className="form-date">25th and 26th AUG 2026</h2>
 
       <form onSubmit={handleSubmit} className="name-form">
         {/* Name */}
