@@ -37,7 +37,6 @@ function NameForm({ fetchNames }) {
 
     setLoading(true);
 
-    // Check if username already exists
     const { data: existingUser, error: checkError } = await supabase
       .from("users")
       .select("id")
