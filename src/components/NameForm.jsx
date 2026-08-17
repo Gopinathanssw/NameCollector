@@ -77,7 +77,6 @@ function NameForm({ fetchNames }) {
 
     showToast("Registration completed successfully!", "success");
 
-    // Reset form
     setName("");
     setUserName("");
     setClubName("");
