@@ -1,58 +1,121 @@
 import { useState } from "react";
 import supabase from "../services/supabase";
 
+const CLUBS = [
+  { value: "millinieal", label: "MILLINIEAL" },
+  { value: "genx", label: "GENX" },
+  { value: "lambo", label: "LAMBO" },
+  { value: "mooning", label: "MOONING" },
+];
+
 function NameForm({ fetchNames }) {
   const [name, setName] = useState("");
   const [userName, setUserName] = useState("");
   const [clubName, setClubName] = useState("");
   const [willing, setWilling] = useState("yes");
-  const [staying, setStaying] = useState("yes");
   const [loading, setLoading] = useState(false);
+
+  const [toast, setToast] = useState("");
+  const [toastType, setToastType] = useState("error");
+
+  const showToast = (message, type = "error") => {
+    setToast(message);
+    setToastType(type);
+
+    setTimeout(() => {
+      setToast("");
+    }, 3000);
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if (!name.trim() || !userName.trim() || !clubName.trim()) {
-      alert("Please fill all fields");
+    if (!name.trim() || !userName.trim() || !clubName) {
+      showToast("Please complete all required fields.");
       return;
     }
 
     setLoading(true);
 
+    // Check if username already exists
+    const { data: existingUser, error: checkError } = await supabase
+      .from("users")
+      .select("id")
+      .eq("user_name", userName.trim())
+      .maybeSingle();
+
+    if (checkError) {
+      setLoading(false);
+      showToast("Unable to verify username. Please try again.");
+      return;
+    }
+
+    if (existingUser) {
+      setLoading(false);
+      showToast("This username is already registered.");
+      return;
+    }
+
+    // Insert new participant
     const { error } = await supabase.from("users").insert([
       {
         name: name.trim(),
         user_name: userName.trim(),
-        club_name: clubName.trim(),
+        club_name: clubName,
         willing_to_come: willing,
-        staying: staying,
       },
     ]);
 
     setLoading(false);
 
     if (error) {
-      alert(error.message);
+      if (error.code === "23505") {
+        showToast("This username is already registered.");
+      } else {
+        showToast("Unable to submit your registration.");
+      }
+
       return;
     }
 
+    showToast("Registration completed successfully!", "success");
+
+    // Reset form
     setName("");
     setUserName("");
     setClubName("");
     setWilling("yes");
-    setStaying("yes");
+
     fetchNames();
   };
 
   return (
     <div className="form-card">
-      <h1 className="form-title">35th GENX REVIEW MEET</h1>
+      {/* Toast */}
+      {toast && (
+        <div
+          className={`toast-message ${
+            toastType === "success" ? "toast-success" : "toast-error"
+          }`}
+          role="alert"
+        >
+          <span className="toast-icon">
+            {toastType === "success" ? "✓" : "!"}
+          </span>
+
+          <span>{toast}</span>
+        </div>
+      )}
+
+      <h1 className="form-title">MILLINIEAL's RELATIONSHIP PROGRAM</h1>
+
       <p className="form-date">2nd AUG 2026</p>
-      <p className="form-subtitle">Enter your name and club to join the list</p>
 
       <form onSubmit={handleSubmit} className="name-form">
+        {/* Name */}
         <div className="field-group">
           <label htmlFor="name">Name</label>
+
           <input
             id="name"
             type="text"
@@ -62,8 +125,10 @@ function NameForm({ fetchNames }) {
           />
         </div>
 
+        {/* Username */}
         <div className="field-group">
           <label htmlFor="userName">Username</label>
+
           <input
             id="userName"
             type="text"
@@ -73,19 +138,29 @@ function NameForm({ fetchNames }) {
           />
         </div>
 
+        {/* Club */}
         <div className="field-group">
-          <label htmlFor="clubName">Club name</label>
-          <input
+          <label htmlFor="clubName">Club</label>
+
+          <select
             id="clubName"
-            type="text"
-            placeholder="Enter club name"
             value={clubName}
             onChange={(e) => setClubName(e.target.value)}
-          />
+          >
+            <option value="">Select club</option>
+
+            {CLUBS.map((club) => (
+              <option key={club.value} value={club.value}>
+                {club.label}
+              </option>
+            ))}
+          </select>
         </div>
 
+        {/* Willing */}
         <div className="field-group">
           <label>Are You Willing?</label>
+
           <div className="radio-group">
             <label
               className={`radio-option ${willing === "yes" ? "selected" : ""}`}
@@ -99,6 +174,7 @@ function NameForm({ fetchNames }) {
               />
               Yes
             </label>
+
             <label
               className={`radio-option ${willing === "no" ? "selected" : ""}`}
             >
@@ -114,36 +190,7 @@ function NameForm({ fetchNames }) {
           </div>
         </div>
 
-        <div className="field-group">
-          <label>STAY?</label>
-          <div className="radio-group">
-            <label
-              className={`radio-option ${staying === "yes" ? "selected" : ""}`}
-            >
-              <input
-                type="radio"
-                name="staying"
-                value="yes"
-                checked={staying === "yes"}
-                onChange={(e) => setStaying(e.target.value)}
-              />
-              Yes
-            </label>
-            <label
-              className={`radio-option ${staying === "no" ? "selected" : ""}`}
-            >
-              <input
-                type="radio"
-                name="staying"
-                value="no"
-                checked={staying === "no"}
-                onChange={(e) => setStaying(e.target.value)}
-              />
-              No
-            </label>
-          </div>
-        </div>
-
+        {/* Submit */}
         <button type="submit" className="submit-btn" disabled={loading}>
           {loading ? "Submitting..." : "Submit"}
         </button>
