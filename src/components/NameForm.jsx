@@ -2,7 +2,7 @@ import { useState } from "react";
 import supabase from "../services/supabase";
 
 const CLUBS = [
-  { value: "millinieal", label: "MILLINIEAL" },
+  { value: "millenial", label: "MILLENIAL" },
   { value: "genx", label: "GENX" },
   { value: "lambo", label: "LAMBO" },
   { value: "mooning", label: "MOONING" },
@@ -69,11 +69,9 @@ function NameForm({ fetchNames }) {
     setLoading(false);
 
     if (error) {
-      if (error.code === "23505") {
-        showToast("This username is already registered.");
-      } else {
-        showToast("Unable to submit your registration.");
-      }
+      console.error("Supabase error:", error);
+
+      showToast(error.message || "Unable to submit your registration.");
 
       return;
     }
@@ -107,7 +105,7 @@ function NameForm({ fetchNames }) {
         </div>
       )}
 
-      <h1 className="form-title">MILLINIEAL's RELATIONSHIP PROGRAM</h1>
+      <h1 className="form-title">MILLENIAL's RELATIONSHIP PROGRAM</h1>
 
       <p className="form-date">2nd AUG 2026</p>
 
